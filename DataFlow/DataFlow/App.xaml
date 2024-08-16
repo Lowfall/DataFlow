@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:DataFlow"
              StartupUri="View/MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary Source="Utilities/DataTemplate.xaml"/>
     </Application.Resources>
 </Application>

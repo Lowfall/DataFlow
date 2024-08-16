@@ -29,13 +29,13 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
             
-            <Button Content="Files" Style="{StaticResource navButton}" Foreground="{StaticResource btnTextColor}"  FontSize="15" FontWeight="ExtraBold"></Button>
-            <Button Content="Table" Style="{StaticResource navButton}" Foreground="{StaticResource btnTextColor}"  FontSize="15" FontWeight="ExtraBold" Grid.Column="1"></Button>
-            <Button Content="Settings" Style="{StaticResource navButton}" Foreground="{StaticResource btnTextColor}"  FontSize="15" FontWeight="ExtraBold" Grid.Column="2"></Button>
+            <Button Content="Files" Style="{StaticResource navButton}" Foreground="{StaticResource btnTextColor}"  FontSize="15" FontWeight="ExtraBold" Command="{Binding FilesCommand}"></Button>
+            <Button Content="Table" Style="{StaticResource navButton}" Foreground="{StaticResource btnTextColor}"  FontSize="15" FontWeight="ExtraBold" Grid.Column="1" Command="{Binding TableCommand}"></Button>
         </Grid>
 
+        <ContentControl Grid.Row="1" Margin="10" Content="{Binding CurrentView}"></ContentControl>
+        
     </Grid>
 </Window>
