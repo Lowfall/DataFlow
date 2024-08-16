@@ -1,0 +1,27 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <SolidColorBrush x:Key="mainPanel" Color="#32a852" />
+    <SolidColorBrush x:Key="btnHovering" Color="#65e688" />
+    <SolidColorBrush x:Key="btnTextColor" Color="#ffffff" />
+
+    <!--Nav button-->
+    <Style x:Key="navButton" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border Name="buttonBack" Background="{StaticResource mainPanel}" BorderBrush="Transparent" CornerRadius="10" Margin="2" >
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" >
+                        </ContentPresenter>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger  Property="IsMouseOver" Value="True">
+                            <Setter TargetName="buttonBack" Property="Background" Value="{StaticResource btnHovering}"></Setter>
+                            <Setter Property="Cursor" Value="Hand"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>
