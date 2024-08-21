@@ -22,6 +22,7 @@ namespace DataFlow.ViewModel
         public RelayCommand ReturnBackCommand { get; set; }
         public RelayCommand ChooseFolderCommand { get; set; }
         public RelayCommand OpenGenerateModalCommand { get; set; }
+        public RelayCommand OpenMergeModalCommand { get; set; }
         public RelayCommand RefreshCommand { get; set; }
 
         public string CurrentDirectory
@@ -48,6 +49,7 @@ namespace DataFlow.ViewModel
             ReturnBackCommand = new RelayCommand(param => ReturnBack());
             ChooseFolderCommand = new RelayCommand(param => ChooseFolder());
             OpenGenerateModalCommand = new RelayCommand(param => OpenGenerateModal());
+            OpenMergeModalCommand = new RelayCommand(param => OpenMergeModal());
             RefreshCommand = new RelayCommand(param => LoadContent());
             FolderContent = new ObservableCollection<FileManagerItem>();
             LoadContent();
@@ -121,7 +123,10 @@ namespace DataFlow.ViewModel
         {
             new GenerateModalPage(CurrentDirectory).ShowDialog();
         }
+        private void OpenMergeModal()
+        {
+            new MergeModalPage(CurrentDirectory).ShowDialog();
+        }
 
-      
     }
 }

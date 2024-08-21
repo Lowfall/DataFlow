@@ -20,7 +20,7 @@
 
         <StackPanel>
             <Button Command="{Binding OpenGenerateModalCommand}">Generate files</Button>
-            <Button>Mergefiles</Button>
+            <Button Command="{Binding OpenMergeModalCommand}">Merge files</Button>
             <Button>Import</Button>
         </StackPanel>
         <Grid Grid.Column="1">

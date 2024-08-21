@@ -41,7 +41,7 @@ namespace DataFlow.ViewModel
         {
             CloseWindowCommand = new RelayCommand(param => CloseWindow(param));
             DragMoveWindowCommand = new RelayCommand(param => DragMoveWindow(param));
-            GenerateStringCommand = new RelayCommand(async param => await GenerateString());
+            GenerateStringCommand = new RelayCommand(async param => await GenerateFiles());
             this.currentDirectory = currentDirectory;
             filesService = new FilesService(currentDirectory);
         }
@@ -62,10 +62,10 @@ namespace DataFlow.ViewModel
             }
         }
 
-        private async Task GenerateString()
+        private async Task GenerateFiles()
         {
-            if (currentDirectory is not null && FilesPrefix is not null && int.TryParse(FilesAmount,out var filesAmount) && int.TryParse(RowsAmount, out var rowsAmount))
-                await filesService.GenerateFiles(currentDirectory, FilesPrefix, filesAmount, rowsAmount);
+            if (!String.IsNullOrEmpty(currentDirectory) && !String.IsNullOrEmpty(FilesPrefix) && int.TryParse(FilesAmount,out var filesAmount) && int.TryParse(RowsAmount, out var rowsAmount))
+                await filesService.GenerateFilesAsync(currentDirectory, FilesPrefix, filesAmount, rowsAmount);
             else if (currentDirectory is null)
                 MessageBox.Show("Please  choose folder");
             else
