@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DataFlow.View.ModalPages"
         mc:Ignorable="d"
-        Title="GenerateModalPage" Height="400" Width="350" WindowStyle="None" WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
+        Title="GenerateModalPage" Height="400" Width="350" WindowStyle="None" ResizeMode="NoResize">
     <Grid>
         <Border BorderBrush="Black" BorderThickness="1">
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">

@@ -1,6 +1,7 @@
 ﻿using DataFlow.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -20,18 +21,20 @@ namespace DataFlow.Services
             randomizer = new Random();
         }
 
-        public async Task GenerateFiles(string directoryPath, string filesPrefix, int filesAmount, int rowsAmount)
+        public async Task GenerateFilesAsync(string directoryPath, string filesPrefix, int filesAmount, int rowsAmount)
         {
-                var tasks = Enumerable.Range(1, filesAmount).Select(i =>
+            var tasks = Enumerable.Range(1, filesAmount).Select(i =>
+            {
+                return Task.Run(() =>
                 {
-                    return Task.Run(() =>
-                    {
-                        string filePath = Path.Combine(directoryPath, $"{filesPrefix}_{i}.txt");
-                        CreateFile(filePath, rowsAmount);
-                    });
+                    string filePath = Path.Combine(directoryPath, $"{filesPrefix}_{i}.txt");
+                    CreateFile(filePath, rowsAmount);
                 });
+            });
 
-                await Task.WhenAll(tasks);
+            await Task.WhenAll(tasks);
+
+            MessageBox.Show("Files generated");
         }
 
         public void ImportFile()
@@ -39,9 +42,18 @@ namespace DataFlow.Services
             throw new NotImplementedException();
         }
 
-        public void MergeFiles()
+        public async Task MergeFilesAsync(string outputFile, string filePrefix, string directoryPath, string substring)
         {
-            throw new NotImplementedException();
+            string[] files = GetFilesWithPrefix(directoryPath,filePrefix);
+
+            foreach (string file in files)
+            {
+                var rows = await File.ReadAllLinesAsync(file);
+                var filteredRows = rows.Where(line => !line.Contains(substring)).ToArray();
+
+                await File.AppendAllLinesAsync(Path.Combine(directoryPath,outputFile+".txt"), filteredRows);
+            }
+            MessageBox.Show("Files merged");
         }
 
         private string GenerateRandomSet(string alphabet, int setLength)
@@ -94,6 +106,12 @@ namespace DataFlow.Services
                     streamWriter.WriteLine(GenerateRow());
                 }
             }
+        }
+
+        private string[] GetFilesWithPrefix(string directoryPath, string filePrefix)
+        {
+            string[] files = Directory.GetFiles(directoryPath, $"{filePrefix}*");
+            return files;
         }
     }
 }

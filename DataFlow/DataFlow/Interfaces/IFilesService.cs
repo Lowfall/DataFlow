@@ -8,8 +8,8 @@ namespace DataFlow.Interfaces
 {
     interface IFilesService
     {
-        Task GenerateFiles(string directoryPath, string filesPrefix, int filesAmount, int rowsAmount);
-        void MergeFiles();
+        Task GenerateFilesAsync(string directoryPath, string filesPrefix, int filesAmount, int rowsAmount);
+        Task MergeFilesAsync(string outputFile, string filePrefix, string directoryPath, string substring);
         void ImportFile();
     }
 }
