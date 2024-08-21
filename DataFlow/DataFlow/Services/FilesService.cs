@@ -44,16 +44,17 @@ namespace DataFlow.Services
 
         public async Task MergeFilesAsync(string outputFile, string filePrefix, string directoryPath, string substring)
         {
+            int counter = 0;
             string[] files = GetFilesWithPrefix(directoryPath,filePrefix);
 
             foreach (string file in files)
             {
                 var rows = await File.ReadAllLinesAsync(file);
                 var filteredRows = rows.Where(line => !line.Contains(substring)).ToArray();
-
+                counter += rows.Length - filteredRows.Length;
                 await File.AppendAllLinesAsync(Path.Combine(directoryPath,outputFile+".txt"), filteredRows);
             }
-            MessageBox.Show("Files merged");
+            MessageBox.Show($"Files merged, {counter} rows are removed");
         }
 
         private string GenerateRandomSet(string alphabet, int setLength)

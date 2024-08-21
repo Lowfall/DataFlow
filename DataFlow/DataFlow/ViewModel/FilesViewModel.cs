@@ -1,4 +1,5 @@
-﻿using DataFlow.Interfaces;
+﻿using DataFlow.Data;
+using DataFlow.Interfaces;
 using DataFlow.Model;
 using DataFlow.Services;
 using DataFlow.Utilities;
@@ -17,12 +18,16 @@ namespace DataFlow.ViewModel
         string buttonVisibility = "Visible";
         string listVisibility = "Collapsed";
         string currentDirectory;
+        int loadedRows;
+        int rowsAmount;
+        IFilesService filesService;
 
         public RelayCommand ChangeFolderCommand { get; set; }
         public RelayCommand ReturnBackCommand { get; set; }
         public RelayCommand ChooseFolderCommand { get; set; }
         public RelayCommand OpenGenerateModalCommand { get; set; }
         public RelayCommand OpenMergeModalCommand { get; set; }
+        public RelayCommand ImportFileCommand { get; set; }
         public RelayCommand RefreshCommand { get; set; }
 
         public string CurrentDirectory
@@ -35,11 +40,20 @@ namespace DataFlow.ViewModel
             get { return buttonVisibility; }
             set { buttonVisibility = value; OnPropertyChanged("ButtonVisibility"); }
         }
-
         public string ListVisibility
         {
             get { return listVisibility; }
             set { listVisibility = value; OnPropertyChanged("ListVisibility"); }
+        }
+        public int RowsAmount
+        {
+            get { return rowsAmount; }
+            set { rowsAmount = value; OnPropertyChanged("RowsAmount"); }
+        }
+        public int LoadedRows
+        {
+            get { return loadedRows; }
+            set { loadedRows = value; OnPropertyChanged("LoadedRows"); }
         }
         public ObservableCollection<FileManagerItem> FolderContent{ get; set; }
 
@@ -50,8 +64,10 @@ namespace DataFlow.ViewModel
             ChooseFolderCommand = new RelayCommand(param => ChooseFolder());
             OpenGenerateModalCommand = new RelayCommand(param => OpenGenerateModal());
             OpenMergeModalCommand = new RelayCommand(param => OpenMergeModal());
+            ImportFileCommand = new RelayCommand(param => ImportFile());
             RefreshCommand = new RelayCommand(param => LoadContent());
             FolderContent = new ObservableCollection<FileManagerItem>();
+            filesService = new FilesService(CurrentDirectory);
             LoadContent();
         }
 
@@ -128,5 +144,37 @@ namespace DataFlow.ViewModel
             new MergeModalPage(CurrentDirectory).ShowDialog();
         }
 
+        private void ImportFile()
+        {
+            ApplicationDbContext dbContext = new ApplicationDbContext();
+            var folderDialog = new OpenFileDialog();
+
+            if (folderDialog.ShowDialog() == true)
+            {
+                var lines = File.ReadAllLines(folderDialog.FileName);
+                RowsAmount = lines.Length;
+                foreach (var line in lines)
+                {
+                    var words = line.Split("||").ToArray();
+                    var model = MapToModel(words);
+                    dbContext.FilesData.Add(model);
+                    dbContext.SaveChanges();
+                    LoadedRows++;
+                }
+            }
+        }
+
+        private FileData MapToModel(string[] lines)
+        {
+            var fileData = new FileData()
+            {
+                Date = DateTime.Parse(lines[0]),
+                EnglishString = lines[1],
+                RussianString = lines[2],
+                GeneratedInteger = Int32.Parse(lines[3]),
+                GeneratedFloat = Single.Parse(lines[4])
+            };
+            return fileData;
+        }
     }
 }
