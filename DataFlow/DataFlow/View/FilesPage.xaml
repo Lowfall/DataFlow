@@ -19,7 +19,7 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel>
-            <Button Command="{Binding OpenGenerateModalCommand}">Generate files</Button>
+            <Button Command="{Binding OpenGenerateModalCommand}" >Generate files</Button>
             <Button Command="{Binding OpenMergeModalCommand}">Merge files</Button>
             <Button Command="{Binding ImportFileCommand}">Import</Button>
         </StackPanel>
@@ -56,9 +56,9 @@
             </ListView>
             <StackPanel Grid.Row="1"  Orientation="Horizontal">
                 <TextBlock Text="{Binding CurrentDirectory}" Margin="0 0 40 0"></TextBlock>
-                <Label Content="{Binding RowsAmount}"></Label>
-                <Label Content="out of"></Label>
-                <Label Content="{Binding RowsAmount}"></Label>
+                <TextBlock Text="{Binding LoadedRows}" Margin="0 0 10 0"></TextBlock>
+                <TextBlock Text="out of" Margin="0 0 10 0"></TextBlock>
+                <TextBlock Text="{Binding RowsAmount}"></TextBlock>
             </StackPanel>
         </Grid>
         
