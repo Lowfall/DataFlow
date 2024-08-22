@@ -1,0 +1,55 @@
+﻿<UserControl x:Class="DataFlow.View.TablePage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DataFlow.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <ResourceDictionary Source="/Styles/LightTheme.xaml"></ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.4*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.1*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Button Content="Choose File" Command="{Binding ImportCommand}" Style="{StaticResource navButton}" Foreground="#ffffff" FontSize="17" FontWeight="ExtraBold"></Button>
+            <ListView Grid.Row="1" VerticalAlignment="Stretch" Margin="0 10 0 0" ItemsSource="{Binding LoadedFiles}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}" Width="Auto" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid >
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.1*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <ComboBox  ItemsSource="{Binding FinancialClasses}" SelectedItem="{Binding SelectedFinancialClass}" DisplayMemberPath="Name"  HorizontalAlignment="Right" VerticalAlignment="Center" Width="150">
+            </ComboBox>
+            <ListView Grid.Row="1" Margin="10" ItemsSource="{Binding BankAccounts}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Bank Account" DisplayMemberBinding="{Binding Id}" Width="Auto" />
+                        <GridViewColumn Header="Active Opening Balance" DisplayMemberBinding="{Binding ActiveOpenningBalance}" Width="Auto" />
+                        <GridViewColumn Header="Passive Opening Balance" DisplayMemberBinding="{Binding PassiveOpenningBalance}" Width="Auto" />
+                        <GridViewColumn Header="Debit Turnover" DisplayMemberBinding="{Binding DebitTurnover}" Width="Auto" />
+                        <GridViewColumn Header="Credit Turnover" DisplayMemberBinding="{Binding CreditTurnover}" Width="Auto" />
+                        <GridViewColumn Header="Active Closing Balance" DisplayMemberBinding="{Binding ActiveClosingBalance}" Width="Auto" />
+                        <GridViewColumn Header="Passive Closing Balance" DisplayMemberBinding="{Binding PassiveClosingBalance}" Width="Auto" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+    </Grid>
+</UserControl>
