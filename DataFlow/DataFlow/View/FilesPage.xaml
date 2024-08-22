@@ -18,10 +18,10 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
 
-        <StackPanel>
-            <Button Command="{Binding OpenGenerateModalCommand}" >Generate files</Button>
-            <Button Command="{Binding OpenMergeModalCommand}">Merge files</Button>
-            <Button Command="{Binding ImportFileCommand}">Import</Button>
+        <StackPanel Background="{StaticResource mainPanel}">
+            <Button Command="{Binding OpenGenerateModalCommand}" Style="{StaticResource menuButton}" FontSize="20" FontWeight="ExtraBold" Foreground="#ffffff">Generate files</Button>
+            <Button Command="{Binding OpenMergeModalCommand}" Style="{StaticResource menuButton}" FontSize="20" FontWeight="ExtraBold" Foreground="#ffffff">Merge files</Button>
+            <Button Command="{Binding ImportFileCommand}" Style="{StaticResource menuButton}" FontSize="20" FontWeight="ExtraBold" Foreground="#ffffff">Import</Button>
         </StackPanel>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
