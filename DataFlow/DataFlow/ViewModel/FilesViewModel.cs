@@ -14,7 +14,6 @@ namespace DataFlow.ViewModel
     public class FilesViewModel : ViewModelBase
     {
         Stack<string> navigationHistory = new Stack<string>();
-        readonly string PATH = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
         string buttonVisibility = "Visible";
         string listVisibility = "Collapsed";
         string currentDirectory;

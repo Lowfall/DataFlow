@@ -1,14 +1,11 @@
 ﻿using DataFlow.Data;
+using DataFlow.Interfaces;
 using DataFlow.Model;
-using Microsoft.Office.Interop.Excel;
 using OfficeOpenXml;
-using System.IO;
-
-
 
 namespace DataFlow.Services
 {
-    public class ExcelService
+    public class ExcelService : IExcelService
     {
         ExcelWorksheet worksheet;
         LoadedFile loadedFile;

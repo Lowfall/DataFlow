@@ -6,6 +6,10 @@
              xmlns:local="clr-namespace:DataFlow.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <ResourceDictionary Source="/Styles/LightTheme.xaml"></ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="0.4*"></ColumnDefinition>
@@ -16,7 +20,7 @@
                 <RowDefinition Height="0.1*"></RowDefinition>
                 <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
-            <Button Content="Choose File" Command="{Binding ImportCommand}"></Button>
+            <Button Content="Choose File" Command="{Binding ImportCommand}" Style="{StaticResource navButton}" Foreground="#ffffff" FontSize="17" FontWeight="ExtraBold"></Button>
             <ListView Grid.Row="1" VerticalAlignment="Stretch" Margin="0 10 0 0" ItemsSource="{Binding LoadedFiles}">
                 <ListView.View>
                     <GridView>
