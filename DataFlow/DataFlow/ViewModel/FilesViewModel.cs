@@ -64,7 +64,7 @@ namespace DataFlow.ViewModel
             ChooseFolderCommand = new RelayCommand(param => ChooseFolder());
             OpenGenerateModalCommand = new RelayCommand(param => OpenGenerateModal());
             OpenMergeModalCommand = new RelayCommand(param => OpenMergeModal());
-            ImportFileCommand = new RelayCommand(param => ImportFile());
+            ImportFileCommand = new RelayCommand(async param =>await  ImportFileAsync());
             RefreshCommand = new RelayCommand(param => LoadContent());
             FolderContent = new ObservableCollection<FileManagerItem>();
             filesService = new FilesService(CurrentDirectory);
@@ -115,7 +115,6 @@ namespace DataFlow.ViewModel
 
         private void ReturnBack()
         {
-            
             if (navigationHistory.Count > 1)
             {
                 navigationHistory.Pop();
@@ -144,21 +143,21 @@ namespace DataFlow.ViewModel
             new MergeModalPage(CurrentDirectory).ShowDialog();
         }
 
-        private void ImportFile()
+        private async Task ImportFileAsync()
         {
             ApplicationDbContext dbContext = new ApplicationDbContext();
             var folderDialog = new OpenFileDialog();
 
             if (folderDialog.ShowDialog() == true)
             {
-                var lines = File.ReadAllLines(folderDialog.FileName);
+                var lines = await File.ReadAllLinesAsync(folderDialog.FileName);
                 RowsAmount = lines.Length;
                 foreach (var line in lines)
                 {
                     var words = line.Split("||").ToArray();
                     var model = MapToModel(words);
-                    dbContext.FilesData.Add(model);
-                    dbContext.SaveChanges();
+                    await dbContext.FilesData.AddAsync(model);
+                    await dbContext.SaveChangesAsync();
                     LoadedRows++;
                 }
             }

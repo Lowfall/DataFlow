@@ -23,8 +23,8 @@ namespace DataFlow.View
     {
         public FilesPage()
         {
-            DataContext = new FilesViewModel();
             InitializeComponent();
+            DataContext = new FilesViewModel();
         }
     }
 }

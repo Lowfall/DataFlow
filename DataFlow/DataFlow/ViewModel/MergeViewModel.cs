@@ -32,7 +32,6 @@ namespace DataFlow.ViewModel
             get { return outputFile; }
             set { outputFile = value; OnPropertyChanged("OutputFile"); }
         }
-
         public string Substring
         {
             get { return substring; }

@@ -19,7 +19,7 @@ namespace DataFlow.ViewModel
         public NavigationViewModel()
         {
             FilesCommand = new RelayCommand( e => { CurrentView = new FilesViewModel(); });
-            TableCommand = new RelayCommand( e => { CurrentView = new TableViewModel(); }); 
+            TableCommand = new RelayCommand( e  => { CurrentView = new TableViewModel(); }); 
 
             CurrentView = new FilesViewModel();
         }

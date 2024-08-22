@@ -50,7 +50,7 @@ namespace DataFlow.Services
             foreach (string file in files)
             {
                 var rows = await File.ReadAllLinesAsync(file);
-                var filteredRows = rows.Where(line => !line.Contains(substring)).ToArray();
+                var filteredRows = !String.IsNullOrEmpty(substring) ? rows.Where(row => !row.Contains(substring)).ToArray() : rows;
                 counter += rows.Length - filteredRows.Length;
                 await File.AppendAllLinesAsync(Path.Combine(directoryPath,outputFile+".txt"), filteredRows);
             }
